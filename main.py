@@ -6,7 +6,7 @@ import os
 Lista_Neuronios = [100, 500]
 Lista_Iterações = [5000, 10000]
 Lista_Ativação = ['identity', 'logistic', 'tanh', 'relu']
-Rodar_a_partir = 4
+Rodar_a_partir = 1
 
 for i in range(Rodar_a_partir-1,5):
     print('Carregando Arquivo de teste')
@@ -15,7 +15,6 @@ for i in range(Rodar_a_partir-1,5):
     x = arquivo[0]
     y = np.ravel(arquivo[1])
 
-    # Cria uma pasta para o teste específico
     pasta_teste = f'teste_{i + 1}'
     os.makedirs(pasta_teste, exist_ok=True)
 
@@ -37,26 +36,22 @@ for i in range(Rodar_a_partir-1,5):
 
                 plt.figure(figsize=[14, 7])
 
-                # plot curso original
                 plt.subplot(1, 3, 1)
                 plt.plot(x, y)
                 plt.title('Curso Original')
 
-                # plot aprendizagem
                 plt.subplot(1, 3, 2)
                 plt.plot(regr.loss_curve_)
                 plt.title('Aprendizagem')
 
-                # plot regressor
                 plt.subplot(1, 3, 3)
                 plt.plot(x, y, linewidth=1, color='yellow', label='Original')
                 plt.plot(x, y_est, linewidth=2, label='Estimado')
                 plt.title('Regressor')
                 plt.legend()
 
-                # Salva o gráfico na pasta do teste
                 nome_grafico = f'grafico_neuronios_{n_neuronios}_iteracoes_{n_iteracoes}_ativacao_{ativacao}.png'
                 plt.savefig(os.path.join(pasta_teste, nome_grafico))
-                plt.close()  # Fecha a figura para liberar memória
+                plt.close()
 
 print('Gráficos salvos nas pastas dos testes.')
